@@ -1,0 +1,49 @@
+<div id="home">
+  <h1>Meteo Dashboard</h1>
+
+  <div class="line-chart-card-container">
+    <div class="line-chart-container">
+      <h2>Temperatura en tiempo real</h2>
+      <!-- Debug: lista de valores recibidos -->
+      <line-chart-component [series]="series" [categories]="categories"></line-chart-component>
+    </div>
+
+    <div class="card">
+      <h2>Última lectura recibida</h2>
+
+      <ng-container *ngIf="latest$ | async as latest; else esperando">
+        <p>
+          <strong>Temperatura:</strong>
+          <span class="text-value"> {{ latest.value }} ºC </span>
+        </p>
+
+        <p>
+          <strong>Energía producida:</strong>
+          <span class="text-value"> {{ latest.energyKWh }} kWh </span>
+        </p>
+
+        <p>
+          <strong>Timestamp:</strong>
+          <span class="text-value">
+            {{ latest.time }}
+          </span>
+        </p>
+      </ng-container>
+
+      <ng-template #esperando>
+        <p>
+          <strong>Temperatura:</strong>
+          <span class="text-value">Esperando datos…</span>
+        </p>
+        <p>
+          <strong>Energía producida:</strong>
+          <span class="text-value">Esperando datos…</span>
+        </p>
+        <p>
+          <strong>Timestamp:</strong>
+          <span class="text-value">Esperando datos…</span>
+        </p>
+      </ng-template>
+    </div>
+  </div>
+</div>
